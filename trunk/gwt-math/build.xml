@@ -1,0 +1,41 @@
+<project name="gwt-commons-logging" default="package-client">
+	
+	<target name="package-client">
+		<mkdir dir="temp"/>
+		
+		<copy todir="temp">
+			<fileset dir="src/main/resources"/>
+		</copy>
+
+		<copy todir="temp/com/googlecode/gwt/math/emul">
+			<fileset dir="src/main/java">
+				<include name="**/*.java"/>
+			</fileset>
+		</copy>
+
+		<jar destfile="./gwt-math.jar">
+			<fileset dir="temp">
+				<include name="**/*.*"/>
+			</fileset>
+		</jar>
+		<delete dir="temp"/>
+	</target>
+
+	<target name="package-server">
+		<mkdir dir="temp"/>
+		
+		<copy todir="temp">
+			<!-- fileset dir="target/classes" -->
+			<!-- include name="**/LogServerService.class"/ -->
+			<!-- /fileset -->
+		</copy>
+
+		<jar destfile="./gwt-math.jar">
+			<fileset dir="temp"> 
+				<include name="**/*.*"/>
+			</fileset>
+		</jar>
+		<delete dir="temp"/>
+	</target>
+
+</project>
