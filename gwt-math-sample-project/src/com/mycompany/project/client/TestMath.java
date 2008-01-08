@@ -110,7 +110,6 @@ public class TestMath implements EntryPoint,ClickListener {
 		
 	}
 
-		
 	public void onClick(Widget sender) {
 		String t = scaleTB.getText();
 		if(t.equals("")) t = "2";
@@ -133,7 +132,7 @@ public class TestMath implements EntryPoint,ClickListener {
 			totaleLB.setText(str);
 		}
 		else if(sender == divideButton){
-			String str = primoTBbigDecimal.divide(secondoTBbigDecimal,BigDecimal.ROUND_HALF_UP).setScale(scale, BigDecimal.ROUND_HALF_UP).toString();
+			String str = primoTBbigDecimal.divide(secondoTBbigDecimal,scale,BigDecimal.ROUND_HALF_UP).toString();
 			totaleLB.setText(str);
 		}
 
