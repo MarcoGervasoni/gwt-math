@@ -3,31 +3,31 @@ package java.math;
 import java.io.Serializable;
 
 
-public class BigDecimal  extends Number implements Cloneable,Serializable{
-	
+public class BigDecimal  implements Cloneable,Serializable{
+
 	/*
 	 * MIEI CAMPI
 	 */
-	
-	public transient InternalBigDecimal internalBigDecimal = null;
+
+	private transient InternalBigDecimal internalBigDecimal = null;
 
 	// Rounding Modes
 
-	public final static int ROUND_UP = 0;
+	public final transient static int ROUND_UP = 0;
 
-	public final static int ROUND_DOWN = 1;
+	public final transient static int ROUND_DOWN = 1;
 
-	public final static int ROUND_CEILING = 2;
+	public final transient static int ROUND_CEILING = 2;
 
-	public final static int ROUND_FLOOR = 3;
+	public final transient static int ROUND_FLOOR = 3;
 
-	public final static int ROUND_HALF_UP = 4;
+	public final transient static int ROUND_HALF_UP = 4;
 
-	public final static int ROUND_HALF_DOWN = 5;
+	public final transient static int ROUND_HALF_DOWN = 5;
 
-	public final static int ROUND_HALF_EVEN = 6;
+	public final transient static int ROUND_HALF_EVEN = 6;
 
-	public final static int ROUND_UNNECESSARY = 7;
+	public final transient static int ROUND_UNNECESSARY = 7;
 
 	//***********************************************
 
@@ -39,32 +39,32 @@ public class BigDecimal  extends Number implements Cloneable,Serializable{
 	public BigDecimal() {
 		this("0");
 	}
-	
+
 	public BigDecimal(String val) {
 		internalBigDecimal = new InternalBigDecimal(val);
 	}
-	
-	public BigDecimal(double val) {
-		throw new IllegalArgumentException("Constructor not implemented");
-	}
 
-	public BigDecimal(BigInteger val) {
-		throw new IllegalArgumentException("Constructor not implemented");
-	}
-
-	public BigDecimal(BigInteger unscaledVal, int scale) {
-		throw new IllegalArgumentException("Constructor not implemented");
-	}
-
-	// Static Factory Methods
-
-	public static BigDecimal valueOf(long unscaledVal, int scale) {
-		throw new IllegalArgumentException("Constructor not implemented");
-	}
-
-	public static BigDecimal valueOf(long val) {
-		throw new IllegalArgumentException("Constructor not implemented");
-	}
+//	public BigDecimal(double val) {
+//		throw new IllegalArgumentException("Constructor not implemented");
+//	}
+//
+//	public BigDecimal(BigInteger val) {
+//		throw new IllegalArgumentException("Constructor not implemented");
+//	}
+//
+//	public BigDecimal(BigInteger unscaledVal, int scale) {
+//		throw new IllegalArgumentException("Constructor not implemented");
+//	}
+//
+//	// Static Factory Methods
+//
+//	public static BigDecimal valueOf(long unscaledVal, int scale) {
+//		throw new IllegalArgumentException("Constructor not implemented");
+//	}
+//
+//	public static BigDecimal valueOf(long val) {
+//		throw new IllegalArgumentException("Constructor not implemented");
+//	}
 
 	// Arithmetic Operations
 
@@ -72,7 +72,7 @@ public class BigDecimal  extends Number implements Cloneable,Serializable{
 		final InternalBigDecimal i = internalBigDecimal.add(val.internalBigDecimal);
 		final BigDecimal b = new BigDecimal(i.toString());
 		return b;
-		
+
 	}
 
 	public BigDecimal subtract(BigDecimal val) {
@@ -86,7 +86,7 @@ public class BigDecimal  extends Number implements Cloneable,Serializable{
 		final InternalBigDecimal i = internalBigDecimal.multiply(val.internalBigDecimal);
 		final BigDecimal b = new BigDecimal(i.toString());
 		return b;
-		
+
 
 	}
 
@@ -131,12 +131,12 @@ public class BigDecimal  extends Number implements Cloneable,Serializable{
 /*
  into Shell Ok outside NO
  * public BigDecimal pow(int n) {
-		
+
 		for (int i = 0; i < Math.abs(n); i++) {
 			InternalBigDecimal multiply = internalBigDecimal.multiply(internalBigDecimal);
 			internalBigDecimal = multiply;
 		}
-		
+
 		InternalBigDecimal divide;
 		if(n<0){
 			BigDecimal menoUno = new BigDecimal("1");
@@ -145,8 +145,8 @@ public class BigDecimal  extends Number implements Cloneable,Serializable{
 		else{
 			divide = internalBigDecimal;
 		}
-		
-		
+
+
 		final BigDecimal b = new BigDecimal(divide.toString());
 		return b;
 	}
@@ -154,7 +154,7 @@ public class BigDecimal  extends Number implements Cloneable,Serializable{
 	// Scaling/Rounding Operations
 
 	public BigDecimal setScale(int scale, int roundingMode) {
-		
+
 		final InternalBigDecimal i = internalBigDecimal.setScale(scale, roundingMode);
 		final BigDecimal b = new BigDecimal(i.toString());
 		return b;
@@ -166,26 +166,26 @@ public class BigDecimal  extends Number implements Cloneable,Serializable{
 
 	// Decimal Point Motion Operations
 
-	public BigDecimal movePointLeft(int n) {
-		throw new IllegalArgumentException("movePointLeft(int n) not implemented");
-	}
-
-	public BigDecimal movePointRight(int n) {
-		throw new IllegalArgumentException("movePointRight(int n) not implemented");
-	}
+//	public BigDecimal movePointLeft(int n) {
+//		throw new IllegalArgumentException("movePointLeft(int n) not implemented");
+//	}
+//
+//	public BigDecimal movePointRight(int n) {
+//		throw new IllegalArgumentException("movePointRight(int n) not implemented");
+//	}
 
 	// Comparison Operations
 
 	public int compareTo(BigDecimal val) {
 		return internalBigDecimal.compareTo(val.internalBigDecimal);
-		
+
 	}
 
 	public int compareTo(Object o) {
 		if (!(o instanceof BigDecimal)) {
 			throw new IllegalArgumentException("method compareTo only with BigDecimal");
 		}
-		
+
 		return compareTo((BigDecimal) o);
 	}
 
@@ -206,7 +206,7 @@ public class BigDecimal  extends Number implements Cloneable,Serializable{
 		final InternalBigDecimal i2 = internalBigDecimal.min(i);
 		final BigDecimal b = new BigDecimal(i2.toString());
 		return b;
-		
+
 	}
 
 	public BigDecimal max(BigDecimal val) {
@@ -237,24 +237,30 @@ public class BigDecimal  extends Number implements Cloneable,Serializable{
 		return toBigInteger().intValue();
 	}
 
-	public long longValue() {
-		throw new IllegalArgumentException("longValue not implemented");
+	public InternalBigDecimal getInternalBigDecimal() {
+		return internalBigDecimal;
 	}
 
-	public float floatValue() {
-		throw new IllegalArgumentException("floatValue not implemented");
-	}
 
-	public double doubleValue() {
-		throw new IllegalArgumentException("doubleValue not implemented");
-	}
+
+//	public long longValue() {
+//		throw new IllegalArgumentException("longValue not implemented");
+//	}
+//
+//	public float floatValue() {
+//		throw new IllegalArgumentException("floatValue not implemented");
+//	}
+//
+//	public double doubleValue() {
+//		throw new IllegalArgumentException("doubleValue not implemented");
+//	}
 
 	// Private "Helper" Methods
 
-	public byte byteValue() {
-		throw new IllegalArgumentException("byteValue not implemented");
-	}
-	public short shortValue() {
-		throw new IllegalArgumentException("shortValue not implemented");
-	}
+//	public byte byteValue() {
+//		throw new IllegalArgumentException("byteValue not implemented");
+//	}
+//	public short shortValue() {
+//		throw new IllegalArgumentException("shortValue not implemented");
+//	}
 }
