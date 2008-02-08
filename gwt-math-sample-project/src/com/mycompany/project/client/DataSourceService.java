@@ -1,6 +1,7 @@
 package com.mycompany.project.client;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -21,6 +22,16 @@ public interface DataSourceService extends RemoteService {
 			return instance;
 		}
 	}
-	
-	public BigDecimal getFirstValue(BigDecimal a);
+
+	public BigDecimal getFirstValue();
+
+	public BigDecimal getSecondValue();
+
+	public void printTotalValue(BigDecimal bigDecimal);
+
+	public BigInteger getFirstIntValue();
+
+	public BigInteger getSecondIntValue();
+
+	public void printTotalValue(BigInteger bigDecimal);
 }

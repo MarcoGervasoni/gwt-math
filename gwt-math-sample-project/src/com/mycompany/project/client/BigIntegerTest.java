@@ -1,8 +1,9 @@
 package com.mycompany.project.client;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
@@ -20,7 +21,7 @@ public class BigIntegerTest extends Composite implements ClickListener{
 	private TextBox SecondoTB = new TextBox();
 	private TextBox PrimoTB = new TextBox();
 	private Label totaleLB = new Label("");
-	
+
 	private Button divideButton = new Button("Divide",this);
 	private Button divideAndReminderButton = new Button("Divide And Reminder",this);
 	private Button reminderButton = new Button("Reminder",this);
@@ -34,24 +35,40 @@ public class BigIntegerTest extends Composite implements ClickListener{
 	private Button maxButton = new Button("Max",this);
 //	private Button powButton = new Button("Pow",this);
 	private Button compareToButton = new Button("compareTo",this);
-	
+
 	private VerticalPanel vpDecimal = new VerticalPanel();
-	
+
 	public BigIntegerTest() {
+		DataSourceService.Util.getInstance().getFirstIntValue(new AsyncCallback(){
+			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
+			public void onSuccess(Object result) {
+				String val = ((BigInteger)result).toString();
+				PrimoTB.setText(val);
+			}
+		});
+
+		DataSourceService.Util.getInstance().getSecondIntValue(new AsyncCallback(){
+			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
+			public void onSuccess(Object result) {
+				String val = ((BigInteger)result).toString();
+				SecondoTB.setText(val);
+			}
+		});
+
 		initWidget(vpDecimal);
 		vpDecimal.setWidth("100%");
-		
-		
+
+
 		vpDecimal.add(new HTML("<strong> BigInteger Test</strong>"));
-		
+
 		final FlexTable flexTable_1 = new FlexTable();
 		vpDecimal.add(flexTable_1);
 		flexTable_1.setWidth("100%");
 		flexTable_1.setCellSpacing(2);
 		flexTable_1.setCellPadding(2);
-		
+
 		createBottoniera(flexTable_1);
-		
+
 		final FlexTable flexTable = new FlexTable();
 		vpDecimal.add(flexTable);
 		flexTable.setWidth("100%");
@@ -73,101 +90,112 @@ public class BigIntegerTest extends Composite implements ClickListener{
 		SecondoTB.setTextAlignment(TextBoxBase.ALIGN_RIGHT);
 		SecondoTB.setWidth("100%");
 
-		
+
 		flexTable.setWidget(2, 1, totaleLB);
 		totaleLB.setHorizontalAlignment(HasHorizontalAlignment.ALIGN_RIGHT);
 
 		final Label totaleLabel = new Label("Totale:");
 		flexTable.setHTML(2, 0, "<strong>"+totaleLabel+"</strong>");
-		
+
 	}
 
 	private void createBottoniera(FlexTable flexTable_1) {
 		final FlexTable bottoniera = new FlexTable();
 		flexTable_1.setWidget(0, 0, bottoniera);
-		
+
 		int row = 0;
-		
+
 		bottoniera.setWidget(0,row++,  addButton);
 		bottoniera.setWidget(0,row++,  multiplyButton);
-		
+
 		bottoniera.setWidget(0,row++,  absButton);
 		bottoniera.setWidget(0,row++,  negateButton);
 		bottoniera.setWidget(0,row++,  signumButton);
 		bottoniera.setWidget(0,row++,  divideAndReminderButton);
 //		bottoniera.setWidget(0,row++,  powButton);
-		
+
 		row = 0;
 		bottoniera.setWidget(1,row++,  subButton);
 		bottoniera.setWidget(1,row++, divideButton);
-		
+
 		bottoniera.setWidget(1,row++, compareToButton);
 		bottoniera.setWidget(1,row++, minButton);
 		bottoniera.setWidget(1,row++, maxButton);
 		bottoniera.setWidget(1,row++, reminderButton);
-		
-		
 	}
 
 	public void onClick(Widget sender) {
-		
-		
 		BigInteger primoTBBigInteger = new BigInteger(PrimoTB.getText());
 		BigInteger secondoTBBigInteger = new BigInteger(SecondoTB.getText());
-		
+
+		String str;
+		BigInteger res = null;
+
 		if(sender == addButton){
-			String str = primoTBBigInteger.add(secondoTBBigInteger).toString();
+			res = primoTBBigInteger.add(secondoTBBigInteger);
+			str = res.toString();
 			totaleLB.setText(str);
 		}
 		else if(sender == subButton){
-			String str = primoTBBigInteger.subtract(secondoTBBigInteger).toString();
+			res = primoTBBigInteger.subtract(secondoTBBigInteger);
+			str = res.toString();
 			totaleLB.setText(str);
 		}
 		else if(sender == multiplyButton){
-			String str = primoTBBigInteger.multiply(secondoTBBigInteger).toString();
+			res = primoTBBigInteger.multiply(secondoTBBigInteger);
+			str = res.toString();
 			totaleLB.setText(str);
 		}
 		else if(sender == divideButton){
-			String str = primoTBBigInteger.divide(secondoTBBigInteger).toString();
+			res = primoTBBigInteger.divide(secondoTBBigInteger);
+			str = res.toString();
 			totaleLB.setText(str);
 		}
 		else if(sender == absButton){
-			String str = primoTBBigInteger.abs().toString();
+			res = primoTBBigInteger.abs();
+			str = res.toString();
 			totaleLB.setText(str);
 		}
 		else if(sender == negateButton){
-			String str = primoTBBigInteger.negate().toString();
+			res = primoTBBigInteger.negate();
+			str = res.toString();
 			totaleLB.setText(str);
 		}
 		else if(sender == signumButton){
-			String str = ""+primoTBBigInteger.signum();
+			str = ""+primoTBBigInteger.signum();
 			totaleLB.setText(str);
 		}
 		else if(sender == compareToButton){
-			String str = ""+primoTBBigInteger.compareTo(secondoTBBigInteger);
+			str = ""+primoTBBigInteger.compareTo(secondoTBBigInteger);
 			totaleLB.setText(str);
 		}
 		else if(sender == minButton){
-			String str = primoTBBigInteger.min(secondoTBBigInteger).toString();
+			res = primoTBBigInteger.min(secondoTBBigInteger);
+			str = res.toString();
 			totaleLB.setText(str);
 		}
 		else if(sender == maxButton){
-			String str = primoTBBigInteger.max(secondoTBBigInteger).toString();
+			res = primoTBBigInteger.max(secondoTBBigInteger);
+			str = res.toString();
 			totaleLB.setText(str);
 		}
 		else if(sender == reminderButton){
-			String str = primoTBBigInteger.remainder(secondoTBBigInteger).toString();
+			res = primoTBBigInteger.remainder(secondoTBBigInteger);
+			str = res.toString();
 			totaleLB.setText(str);
 		}
 		else if(sender == divideAndReminderButton){
 			final BigInteger[] divideAndRemainder = primoTBBigInteger.divideAndRemainder(secondoTBBigInteger);
-			String str = "[0]"+divideAndRemainder[0]+"***[1]:"+divideAndRemainder[1];
+			str = "[0]"+divideAndRemainder[0]+"***[1]:"+divideAndRemainder[1];
 			totaleLB.setText(str);
 		}
-//		else if(sender == powButton){
-//			String str = primoTBBigInteger.pow(4).toString();
-//			totaleLB.setText("first pow 4: "+str);
-//		}
+
+		if(res!=null){
+			DataSourceService.Util.getInstance().printTotalValue(res, new AsyncCallback(){
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(Object result) {}
+			});
+		}
 
 	}
 
