@@ -2,8 +2,6 @@ package com.mycompany.project.client;
 
 import java.math.BigInteger;
 
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
@@ -39,21 +37,21 @@ public class BigIntegerTest extends Composite implements ClickListener{
 	private VerticalPanel vpDecimal = new VerticalPanel();
 
 	public BigIntegerTest() {
-		DataSourceService.Util.getInstance().getFirstIntValue(new AsyncCallback(){
-			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
-			public void onSuccess(Object result) {
-				String val = ((BigInteger)result).toString();
-				PrimoTB.setText(val);
-			}
-		});
+//		DataSourceService.Util.getInstance().getFirstIntValue(new AsyncCallback(){
+//			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
+//			public void onSuccess(Object result) {
+//				String val = ((BigInteger)result).toString();
+				PrimoTB.setText("145");
+//			}
+//		});
 
-		DataSourceService.Util.getInstance().getSecondIntValue(new AsyncCallback(){
-			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
-			public void onSuccess(Object result) {
-				String val = ((BigInteger)result).toString();
-				SecondoTB.setText(val);
-			}
-		});
+//		DataSourceService.Util.getInstance().getSecondIntValue(new AsyncCallback(){
+//			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
+//			public void onSuccess(Object result) {
+//				String val = ((BigInteger)result).toString();
+				SecondoTB.setText("214");
+//			}
+//		});
 
 		initWidget(vpDecimal);
 		vpDecimal.setWidth("100%");
@@ -78,7 +76,6 @@ public class BigIntegerTest extends Composite implements ClickListener{
 		flexTable.getCellFormatter().setWidth(0, 0, "50%");
 
 		flexTable.setWidget(0, 1, PrimoTB);
-		PrimoTB.setText("10");
 		PrimoTB.setTextAlignment(TextBoxBase.ALIGN_RIGHT);
 		PrimoTB.setWidth("100%");
 
@@ -86,7 +83,6 @@ public class BigIntegerTest extends Composite implements ClickListener{
 		flexTable.setWidget(1, 0, secondoLabel);
 
 		flexTable.setWidget(1, 1, SecondoTB);
-		SecondoTB.setText("2");
 		SecondoTB.setTextAlignment(TextBoxBase.ALIGN_RIGHT);
 		SecondoTB.setWidth("100%");
 
@@ -190,12 +186,12 @@ public class BigIntegerTest extends Composite implements ClickListener{
 			totaleLB.setText(str);
 		}
 
-		if(res!=null){
-			DataSourceService.Util.getInstance().printTotalValue(res, new AsyncCallback(){
-				public void onFailure(Throwable caught) {}
-				public void onSuccess(Object result) {}
-			});
-		}
+//		if(res!=null){
+//			DataSourceService.Util.getInstance().printTotalValue(res, new AsyncCallback(){
+//				public void onFailure(Throwable caught) {}
+//				public void onSuccess(Object result) {}
+//			});
+//		}
 
 	}
 
