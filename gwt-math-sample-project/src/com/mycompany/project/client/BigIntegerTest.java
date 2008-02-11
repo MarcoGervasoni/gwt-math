@@ -188,12 +188,12 @@ public class BigIntegerTest extends Composite implements ClickListener{
 			totaleLB.setText(str);
 		}
 
-//		if(res!=null){
-//			DataSourceService.Util.getInstance().printTotalValue(res, new AsyncCallback(){
-//				public void onFailure(Throwable caught) {}
-//				public void onSuccess(Object result) {}
-//			});
-//		}
+		if(res!=null){
+			DataSourceService.Util.getInstance().printTotalValue(res, new AsyncCallback(){
+				public void onFailure(Throwable caught) {}
+				public void onSuccess(Object result) {}
+			});
+		}
 
 	}
 
