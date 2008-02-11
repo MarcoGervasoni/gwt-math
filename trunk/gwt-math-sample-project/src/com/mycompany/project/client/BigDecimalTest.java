@@ -3,6 +3,8 @@ package com.mycompany.project.client;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.Composite;
@@ -42,21 +44,21 @@ public class BigDecimalTest extends Composite implements ClickListener {
 
 	public BigDecimalTest() {
 
-//		DataSourceService.Util.getInstance().getFirstValue(new AsyncCallback(){
-//			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
-//			public void onSuccess(Object result) {
-//				String val = ((BigDecimal)result).toString();
-				PrimoTB.setText("100.45");
-//			}
-//		});
+		DataSourceService.Util.getInstance().getFirstValue(new AsyncCallback(){
+			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
+			public void onSuccess(Object result) {
+				String val = ((BigDecimal)result).toString();
+				PrimoTB.setText(val);
+			}
+		});
 
-//		DataSourceService.Util.getInstance().getSecondValue(new AsyncCallback(){
-//			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
-//			public void onSuccess(Object result) {
-//				String val = ((BigDecimal)result).toString();
-				SecondoTB.setText("2.56");
-//			}
-//		});
+		DataSourceService.Util.getInstance().getSecondValue(new AsyncCallback(){
+			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
+			public void onSuccess(Object result) {
+				String val = ((BigDecimal)result).toString();
+				SecondoTB.setText(val);
+			}
+		});
 
 
 		initWidget(vpDecimal);
