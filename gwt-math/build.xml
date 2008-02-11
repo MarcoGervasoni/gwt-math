@@ -13,12 +13,11 @@
 			</fileset>
 		</copy>
 
-
-	<!--	<copy todir="temp/com">-->
-	<!--		<fileset dir="src/main/java/com">-->
-	<!--			<include name="**/*.java"/>-->
-	<!--		</fileset>-->
-	<!--	</copy>-->
+		<copy todir="temp/com/google/gwt/user/client/rpc/core/java/math">
+			<fileset dir="src/main/java/com/google/gwt/user/client/rpc/core/java/math">
+				<include name="**/*.java"/>
+			</fileset>
+		</copy>
 
 		<jar destfile="./gwt-math-2.0.jar">
 			<fileset dir="temp">
@@ -32,12 +31,13 @@
 		<mkdir dir="temp"/>
 
 		<copy todir="temp">
-			<!-- fileset dir="target/classes" -->
-			<!-- include name="**/LogServerService.class"/ -->
-			<!-- /fileset -->
+			<fileset dir="bin">
+				<include name="**/BigDecimal_CustomFieldSerializer.class"/>
+				<include name="**/BigInteger_CustomFieldSerializer.class"/>
+			</fileset>
 		</copy>
 
-		<jar destfile="./gwt-math.jar">
+		<jar destfile="./gwt-math-server.jar">
 			<fileset dir="temp">
 				<include name="**/*.*"/>
 			</fileset>
