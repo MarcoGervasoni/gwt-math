@@ -19,7 +19,7 @@
 			</fileset>
 		</copy>
 
-		<jar destfile="./gwt-math-2.0.jar">
+		<jar destfile="./gwt-math-2.0.1.jar">
 			<fileset dir="temp">
 				<include name="**/*.*"/>
 			</fileset>
@@ -37,7 +37,7 @@
 			</fileset>
 		</copy>
 
-		<jar destfile="./gwt-math-server.jar">
+		<jar destfile="./gwt-math-server-2.0.1.jar">
 			<fileset dir="temp">
 				<include name="**/*.*"/>
 			</fileset>
