@@ -1,1 +1,0 @@
-Needed jar gwt-math-2.0.jar and gwt-math-server.jar
