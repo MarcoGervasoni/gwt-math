@@ -41,9 +41,23 @@ public class BigDecimal  implements Cloneable,Serializable{
 	}
 
 	public BigDecimal(String val) {
-		internalBigDecimal = new InternalBigDecimal(val);
+		
+		try{
+			Double.parseDouble(val);
+			internalBigDecimal = new InternalBigDecimal(val);
+		}
+		catch (Exception e) {
+			throw new IllegalArgumentException("Value of BigDecimal isn't a right value.");
+		}
+		
+		
 	}
 
+	//ADD into 2.0.2
+	public BigDecimal(int val) {
+		this(""+val);
+	}
+	
 //	public BigDecimal(double val) {
 //		throw new IllegalArgumentException("Constructor not implemented");
 //	}
