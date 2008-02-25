@@ -37,8 +37,21 @@ public class BigInteger implements Cloneable,Serializable {
 //	}
 
 	public BigInteger(String val) {
-		internalBigInteger = new BigDecimal(val);
-		internalBigInteger.setScale(0);
+		try{
+			Integer.parseInt(val);
+			internalBigInteger = new BigDecimal(val);
+			internalBigInteger.setScale(0);
+		}
+		catch (Exception e) {
+			throw new IllegalArgumentException("Value of BigInteger isn't a right value.");
+		}
+		
+		
+	}
+	
+	//ADD into 2.0.2
+	public BigInteger(int val) {
+		this(""+val);
 	}
 
 	private BigInteger convert(BigDecimal val) {
