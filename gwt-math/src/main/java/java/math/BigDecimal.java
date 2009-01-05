@@ -58,6 +58,7 @@ public class BigDecimal  implements Cloneable,Serializable{
 		this(""+val);
 	}
 	
+	
 //	public BigDecimal(double val) {
 //		throw new IllegalArgumentException("Constructor not implemented");
 //	}
@@ -81,7 +82,13 @@ public class BigDecimal  implements Cloneable,Serializable{
 //	}
 
 	// Arithmetic Operations
-
+	//ADD into 2.0.3
+	public BigDecimal remainder(BigDecimal val){
+		final InternalBigDecimal i = internalBigDecimal.remainder(val.internalBigDecimal);
+		final BigDecimal b = new BigDecimal(i.toString());
+		return b;
+	}
+	
 	public BigDecimal add(BigDecimal val) {
 		final InternalBigDecimal i = internalBigDecimal.add(val.internalBigDecimal);
 		final BigDecimal b = new BigDecimal(i.toString());
