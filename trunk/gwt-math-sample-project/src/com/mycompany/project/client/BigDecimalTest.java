@@ -33,6 +33,8 @@ public class BigDecimalTest extends Composite implements ClickListener {
 	private Button minButton = new Button("Min",this);
 	private Button maxButton = new Button("Max",this);
 	private Button toBigIntegerButton = new Button("toBigInteger",this);
+	private Button remainderButton = new Button("Remainder",this);
+	
 //	private Button powButton = new Button("Pow",this);
 
 
@@ -123,7 +125,7 @@ public class BigDecimalTest extends Composite implements ClickListener {
 		bottoniera.setWidget(0,row++,  negateButton);
 		bottoniera.setWidget(0,row++,  signumButton);
 		bottoniera.setWidget(0,row++,  unscaledValueButton);
-//		bottoniera.setWidget(0,row++,  powButton);
+		bottoniera.setWidget(0,row++,  remainderButton);
 
 		row = 0;
 		bottoniera.setWidget(1,row++,  subButton);
@@ -221,6 +223,11 @@ public class BigDecimalTest extends Composite implements ClickListener {
 		else if(sender == toBigIntegerButton){
 			BigInteger resI = primoTBbigDecimal.toBigInteger();
 			str =  resI.toString();
+			totaleLB.setText(str);
+		}
+		else if(sender == remainderButton){
+			res = primoTBbigDecimal.remainder(secondoTBbigDecimal);
+			str =  res.toString();
 			totaleLB.setText(str);
 		}
 
