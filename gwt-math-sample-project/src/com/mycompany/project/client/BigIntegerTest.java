@@ -33,7 +33,7 @@ public class BigIntegerTest extends Composite implements ClickListener{
 	private Button signumButton = new Button("Signum",this);
 	private Button minButton = new Button("Min",this);
 	private Button maxButton = new Button("Max",this);
-//	private Button powButton = new Button("Pow",this);
+	private Button powButton = new Button("Pow",this);
 	private Button compareToButton = new Button("compareTo",this);
 
 	private VerticalPanel vpDecimal = new VerticalPanel();
@@ -110,7 +110,7 @@ public class BigIntegerTest extends Composite implements ClickListener{
 		bottoniera.setWidget(0,row++,  negateButton);
 		bottoniera.setWidget(0,row++,  signumButton);
 		bottoniera.setWidget(0,row++,  divideAndReminderButton);
-//		bottoniera.setWidget(0,row++,  powButton);
+		bottoniera.setWidget(0,row++,  powButton);
 
 		row = 0;
 		bottoniera.setWidget(1,row++,  subButton);
@@ -187,7 +187,13 @@ public class BigIntegerTest extends Composite implements ClickListener{
 			str = "[0]"+divideAndRemainder[0]+"***[1]:"+divideAndRemainder[1];
 			totaleLB.setText(str);
 		}
-
+		else if(sender == powButton){
+			int i = new Integer(SecondoTB.getText()).intValue();
+			
+			res = primoTBBigInteger.pow(i);
+			str =  res.toString();
+			totaleLB.setText(str);
+		}
 		if(res!=null){
 			DataSourceService.Util.getInstance().printTotalValue(res, new AsyncCallback(){
 				public void onFailure(Throwable caught) {}

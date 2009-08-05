@@ -35,7 +35,7 @@ public class BigDecimalTest extends Composite implements ClickListener {
 	private Button toBigIntegerButton = new Button("toBigInteger",this);
 	private Button remainderButton = new Button("Remainder",this);
 	
-//	private Button powButton = new Button("Pow",this);
+	private Button powButton = new Button("Pow",this);
 
 
 	private TextBox SecondoTB = new TextBox();
@@ -46,7 +46,7 @@ public class BigDecimalTest extends Composite implements ClickListener {
 
 	public BigDecimalTest() {
 
-		DataSourceService.Util.getInstance().getFirstValue(new AsyncCallback(){
+		DataSourceService.Util.getInstance().getFirstValue(new AsyncCallback<Object>(){
 			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
 			public void onSuccess(Object result) {
 				String val = ((BigDecimal)result).toString();
@@ -54,7 +54,7 @@ public class BigDecimalTest extends Composite implements ClickListener {
 			}
 		});
 
-		DataSourceService.Util.getInstance().getSecondValue(new AsyncCallback(){
+		DataSourceService.Util.getInstance().getSecondValue(new AsyncCallback<Object>(){
 			public void onFailure(Throwable caught) { Window.alert(caught.getMessage()); }
 			public void onSuccess(Object result) {
 				String val = ((BigDecimal)result).toString();
@@ -135,6 +135,7 @@ public class BigDecimalTest extends Composite implements ClickListener {
 		bottoniera.setWidget(1,row++, minButton);
 		bottoniera.setWidget(1,row++, maxButton);
 		bottoniera.setWidget(1,row++, toBigIntegerButton);
+		bottoniera.setWidget(1,row++, powButton);
 
 
 	}
@@ -227,6 +228,13 @@ public class BigDecimalTest extends Composite implements ClickListener {
 		}
 		else if(sender == remainderButton){
 			res = primoTBbigDecimal.remainder(secondoTBbigDecimal);
+			str =  res.toString();
+			totaleLB.setText(str);
+		}
+		else if(sender == powButton){
+			int i = new Integer(SecondoTB.getText()).intValue();
+			
+			res = primoTBbigDecimal.pow(i);
 			str =  res.toString();
 			totaleLB.setText(str);
 		}
