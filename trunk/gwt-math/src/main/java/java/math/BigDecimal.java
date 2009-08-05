@@ -2,8 +2,8 @@ package java.math;
 
 import java.io.Serializable;
 
-
-public class BigDecimal  implements Cloneable,Serializable{
+public class BigDecimal extends Number implements Cloneable, Serializable,
+		Comparable<BigDecimal> {
 
 	/*
 	 * MIEI CAMPI
@@ -29,10 +29,16 @@ public class BigDecimal  implements Cloneable,Serializable{
 
 	public final transient static int ROUND_UNNECESSARY = 7;
 
-	//***********************************************
+	// Useful constants
+	public final transient static BigDecimal ZERO = new BigDecimal("0");
+
+	public final transient static BigDecimal ONE = new BigDecimal("1");
+
+	public final transient static BigDecimal TEN = new BigDecimal("10");
+	// ***********************************************
 
 	/* Appease the serialization gods */
-	private static final long serialVersionUID = 6108874887143696463L;
+	private static final long serialVersionUID = 1L;
 
 	// Constructors
 
@@ -41,84 +47,114 @@ public class BigDecimal  implements Cloneable,Serializable{
 	}
 
 	public BigDecimal(String val) {
-		
-		try{
+		try {
 			Double.parseDouble(val);
 			internalBigDecimal = new InternalBigDecimal(val);
+		} catch (Exception e) {
+			throw new NumberFormatException(
+					"Value of BigDecimal isn't a right value.");
 		}
-		catch (Exception e) {
-			throw new IllegalArgumentException("Value of BigDecimal isn't a right value.");
-		}
-		
-		
 	}
 
-	//ADD into 2.0.2
+	// ADD into 2.0.2
 	public BigDecimal(int val) {
-		this(""+val);
+		this("" + val);
 	}
-	
-	
-//	public BigDecimal(double val) {
-//		throw new IllegalArgumentException("Constructor not implemented");
-//	}
-//
-//	public BigDecimal(BigInteger val) {
-//		throw new IllegalArgumentException("Constructor not implemented");
-//	}
-//
-//	public BigDecimal(BigInteger unscaledVal, int scale) {
-//		throw new IllegalArgumentException("Constructor not implemented");
-//	}
-//
-//	// Static Factory Methods
-//
-//	public static BigDecimal valueOf(long unscaledVal, int scale) {
-//		throw new IllegalArgumentException("Constructor not implemented");
-//	}
-//
-//	public static BigDecimal valueOf(long val) {
-//		throw new IllegalArgumentException("Constructor not implemented");
-//	}
+
+	private BigDecimal(long val) {
+		this("" + val);
+	}
+
+	public BigDecimal(double val) {
+		this("" + val);
+	}
+
+	//
+	// public BigDecimal(BigInteger val) {
+	// throw new IllegalArgumentException("Constructor not implemented");
+	// }
+	//
+	// public BigDecimal(BigInteger unscaledVal, int scale) {
+	// throw new IllegalArgumentException("Constructor not implemented");
+	// }
+
+	// Static Factory Methods
+	public static BigDecimal valueOf(long unscaledVal, int scale) {
+		BigDecimal bd = new BigDecimal(unscaledVal);
+		bd.setScale(scale);
+		return bd;
+	}
+
+	public static BigDecimal valueOf(long unscaledVal) {
+		return valueOf(unscaledVal, 0);
+	}
 
 	// Arithmetic Operations
-	//ADD into 2.0.3
-	public BigDecimal remainder(BigDecimal val){
-		final InternalBigDecimal i = internalBigDecimal.remainder(val.internalBigDecimal);
+	public BigDecimal pow(int n) {
+		if (n < 0 || n > 999999999)
+			throw new ArithmeticException("Invalid operation");
+
+		if (n == 0) {
+			return ONE;
+		}
+		long newScale = scale() * n;
+		if (newScale > Integer.MAX_VALUE)
+			throw new ArithmeticException("Underflow");
+		if (newScale < Integer.MIN_VALUE)
+			throw new ArithmeticException("Overflow");
+
+		BigDecimal res = this;
+		for (int i = 0; i < n-1; i++) {
+			res = res.multiply(this).setScale((int) newScale,
+					BigDecimal.ROUND_HALF_UP);
+		}
+
+		return res;
+	}
+
+
+	// ADD into 2.0.3
+	public BigDecimal remainder(BigDecimal val) {
+		final InternalBigDecimal i = internalBigDecimal
+				.remainder(val.internalBigDecimal);
 		final BigDecimal b = new BigDecimal(i.toString());
 		return b;
 	}
-	
+
 	public BigDecimal add(BigDecimal val) {
-		final InternalBigDecimal i = internalBigDecimal.add(val.internalBigDecimal);
+		final InternalBigDecimal i = internalBigDecimal
+				.add(val.internalBigDecimal);
 		final BigDecimal b = new BigDecimal(i.toString());
 		return b;
 
 	}
 
 	public BigDecimal subtract(BigDecimal val) {
-		final InternalBigDecimal i = internalBigDecimal.subtract(val.internalBigDecimal);
+		final InternalBigDecimal i = internalBigDecimal
+				.subtract(val.internalBigDecimal);
 		final BigDecimal b = new BigDecimal(i.toString());
 		return b;
 
 	}
 
 	public BigDecimal multiply(BigDecimal val) {
-		final InternalBigDecimal i = internalBigDecimal.multiply(val.internalBigDecimal);
+		final InternalBigDecimal i = internalBigDecimal
+				.multiply(val.internalBigDecimal);
 		final BigDecimal b = new BigDecimal(i.toString());
 		return b;
-
 
 	}
 
 	public BigDecimal divide(BigDecimal val, int scale, int roundingMode) {
-		final InternalBigDecimal i = internalBigDecimal.divide(val.internalBigDecimal,scale,roundingMode);
+		final InternalBigDecimal i = internalBigDecimal.divide(
+				val.internalBigDecimal, scale, roundingMode);
 		final BigDecimal b = new BigDecimal(i.toString());
 		return b;
 	}
 
 	public BigDecimal divide(BigDecimal val, int roundingMode) {
-		final InternalBigDecimal i = internalBigDecimal.divide(val.internalBigDecimal,roundingMode);
+		final InternalBigDecimal i = internalBigDecimal.divide(
+				val.internalBigDecimal, roundingMode);
 		final BigDecimal b = new BigDecimal(i.toString());
 		return b;
 	}
@@ -149,34 +185,26 @@ public class BigDecimal  implements Cloneable,Serializable{
 		return new BigInteger(s2);
 	}
 
-/*
- into Shell Ok outside NO
- * public BigDecimal pow(int n) {
-
-		for (int i = 0; i < Math.abs(n); i++) {
-			InternalBigDecimal multiply = internalBigDecimal.multiply(internalBigDecimal);
-			internalBigDecimal = multiply;
-		}
-
-		InternalBigDecimal divide;
-		if(n<0){
-			BigDecimal menoUno = new BigDecimal("1");
-			divide = menoUno.internalBigDecimal.divide(internalBigDecimal);
-		}
-		else{
-			divide = internalBigDecimal;
-		}
-
-
-		final BigDecimal b = new BigDecimal(divide.toString());
-		return b;
-	}
- */
+	/*
+	 * into Shell Ok outside NO public BigDecimal pow(int n) {
+	 * 
+	 * for (int i = 0; i < Math.abs(n); i++) { InternalBigDecimal multiply =
+	 * internalBigDecimal.multiply(internalBigDecimal); internalBigDecimal =
+	 * multiply; }
+	 * 
+	 * InternalBigDecimal divide; if(n<0){ BigDecimal menoUno = new
+	 * BigDecimal("1"); divide =
+	 * menoUno.internalBigDecimal.divide(internalBigDecimal); } else{ divide =
+	 * internalBigDecimal; }
+	 * 
+	 * 
+	 * final BigDecimal b = new BigDecimal(divide.toString()); return b; }
+	 */
 	// Scaling/Rounding Operations
-
 	public BigDecimal setScale(int scale, int roundingMode) {
 
-		final InternalBigDecimal i = internalBigDecimal.setScale(scale, roundingMode);
+		final InternalBigDecimal i = internalBigDecimal.setScale(scale,
+				roundingMode);
 		final BigDecimal b = new BigDecimal(i.toString());
 		return b;
 	}
@@ -187,43 +215,49 @@ public class BigDecimal  implements Cloneable,Serializable{
 
 	// Decimal Point Motion Operations
 
-//	public BigDecimal movePointLeft(int n) {
-//		throw new IllegalArgumentException("movePointLeft(int n) not implemented");
-//	}
-//
-//	public BigDecimal movePointRight(int n) {
-//		throw new IllegalArgumentException("movePointRight(int n) not implemented");
-//	}
+	// public BigDecimal movePointLeft(int n) {
+	// throw new
+	// IllegalArgumentException("movePointLeft(int n) not implemented");
+	// }
+	//
+	// public BigDecimal movePointRight(int n) {
+	// throw new
+	// IllegalArgumentException("movePointRight(int n) not implemented");
+	// }
 
 	// Comparison Operations
 
 	public int compareTo(BigDecimal val) {
-		return internalBigDecimal.compareTo(val.internalBigDecimal);
-
-	}
-
-	public int compareTo(Object o) {
-		if (!(o instanceof BigDecimal)) {
-			throw new IllegalArgumentException("method compareTo only with BigDecimal");
+		if (!(val instanceof BigDecimal)) {
+			throw new IllegalArgumentException(
+					"method compareTo only with BigDecimal");
 		}
-
-		return compareTo((BigDecimal) o);
+		return internalBigDecimal.compareTo(val.internalBigDecimal);
 	}
+
+	// public int compareTo(Object o) {
+	// if (!(o instanceof BigDecimal)) {
+	// throw new
+	// IllegalArgumentException("method compareTo only with BigDecimal");
+	// }
+	//
+	// return compareTo((BigDecimal) o);
+	// }
 
 	public boolean equals(Object obj) {
-		if(obj == null){
-        	return false;
-        }
-        else if (obj instanceof BigDecimal) {
-        	return internalBigDecimal.equals(((BigDecimal)obj).internalBigDecimal);
+		if (obj == null) {
+			return false;
+		} else if (obj instanceof BigDecimal) {
+			return internalBigDecimal
+					.equals(((BigDecimal) obj).internalBigDecimal);
+		} else {
+			return false;
 		}
-        else{
-        	return false;
-        }
 	}
 
 	public BigDecimal min(BigDecimal val) {
-		InternalBigDecimal i = new InternalBigDecimal(val.internalBigDecimal.toString());
+		InternalBigDecimal i = new InternalBigDecimal(val.internalBigDecimal
+				.toString());
 		final InternalBigDecimal i2 = internalBigDecimal.min(i);
 		final BigDecimal b = new BigDecimal(i2.toString());
 		return b;
@@ -231,10 +265,31 @@ public class BigDecimal  implements Cloneable,Serializable{
 	}
 
 	public BigDecimal max(BigDecimal val) {
-		InternalBigDecimal i = new InternalBigDecimal(val.internalBigDecimal.toString());
+		InternalBigDecimal i = new InternalBigDecimal(val.internalBigDecimal
+				.toString());
 		final InternalBigDecimal i2 = internalBigDecimal.max(i);
 		final BigDecimal b = new BigDecimal(i2.toString());
 		return b;
+	}
+
+	@Override
+	public int intValue() {
+		return toBigInteger().intValue();
+	}
+
+	@Override
+	public double doubleValue() {
+		return new Double(this.toString());
+	}
+
+	@Override
+	public float floatValue() {
+		return new Float(this.toString());
+	}
+
+	@Override
+	public long longValue() {
+		return new Long(this.toString());
 	}
 
 	// Hash Function
@@ -251,37 +306,19 @@ public class BigDecimal  implements Cloneable,Serializable{
 
 	public BigInteger toBigInteger() {
 		InternalBigDecimal i = internalBigDecimal.setScale(0, ROUND_DOWN);
-		return new BigInteger( i.toString());
-	}
-
-	public int intValue() {
-		return toBigInteger().intValue();
+		return new BigInteger(i.toString());
 	}
 
 	public InternalBigDecimal getInternalBigDecimal() {
 		return internalBigDecimal;
 	}
 
-
-
-//	public long longValue() {
-//		throw new IllegalArgumentException("longValue not implemented");
-//	}
-//
-//	public float floatValue() {
-//		throw new IllegalArgumentException("floatValue not implemented");
-//	}
-//
-//	public double doubleValue() {
-//		throw new IllegalArgumentException("doubleValue not implemented");
-//	}
-
 	// Private "Helper" Methods
 
-//	public byte byteValue() {
-//		throw new IllegalArgumentException("byteValue not implemented");
-//	}
-//	public short shortValue() {
-//		throw new IllegalArgumentException("shortValue not implemented");
-//	}
+	// public byte byteValue() {
+	// throw new IllegalArgumentException("byteValue not implemented");
+	// }
+	// public short shortValue() {
+	// throw new IllegalArgumentException("shortValue not implemented");
+	// }
 }
