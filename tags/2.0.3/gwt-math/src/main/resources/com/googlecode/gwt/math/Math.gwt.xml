@@ -1,0 +1,8 @@
+<module>
+    <script src="js/amathcontext.js"></script>
+	<script src="js/bigdecimal.js"></script>
+	<inherits name="com.google.gwt.user.User"/>
+    
+	
+	<inherits name="com.googlecode.gwt.math.emul.Emulation"/>
+</module>
