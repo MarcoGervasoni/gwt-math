@@ -1,0 +1,16 @@
+7
+8
+9
+11
+12
+13
+14
+15
+16
+17
+18
+
+
+
+mvn deploy:deploy-file -DgroupId=com.googlecode  -DartifactId=gwt-math -Dversion=2.1  -Dpackaging=jar -Dfile=C:/progetti/gwt-math/gwt-math-sample-project/lib/gwt-math-2.1.jar -Durl=scm:svn:https://gwt-math.googlecode.com/svn/maven2
+mvn deploy:deploy-file -DgroupId=com.googlecode  -DartifactId=gwt-math-server -Dversion=2.1  -Dpackaging=jar -Dfile=C:/progetti/gwt-math/gwt-math-sample-project/lib/gwt-math-server-2.1.jar -Durl=scm:svn:https://gwt-math.googlecode.com/svn/maven2
