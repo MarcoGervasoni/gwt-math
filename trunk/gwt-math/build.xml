@@ -1,4 +1,4 @@
-<project name="gwt-math" default="package-server">
+<project name="gwt-math" default="package-client">
 
 	<target name="package-client">
 		<mkdir dir="temp"/>
@@ -19,7 +19,7 @@
 			</fileset>
 		</copy>
 
-		<jar destfile="./gwt-math-2.0.4.jar">
+		<jar destfile="./gwt-math-2.1.jar">
 			<fileset dir="temp">
 				<include name="**/*.*"/>
 			</fileset>
@@ -37,7 +37,7 @@
 			</fileset>
 		</copy>
 
-		<jar destfile="./gwt-math-server-2.0.4.jar">
+		<jar destfile="./gwt-math-server-2.1.jar">
 			<fileset dir="temp">
 				<include name="**/*.*"/>
 			</fileset>
