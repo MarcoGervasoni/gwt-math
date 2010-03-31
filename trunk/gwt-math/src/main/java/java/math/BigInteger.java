@@ -42,7 +42,7 @@ public class BigInteger extends Number implements Cloneable, Serializable,
 
 	public BigInteger(String val) {
 		try {
-			Integer.parseInt(val);
+			Double.parseDouble(val);
 			internalBigInteger = new BigDecimal(val);
 			internalBigInteger.setScale(0);
 		} catch (Exception e) {
@@ -119,17 +119,19 @@ public class BigInteger extends Number implements Cloneable, Serializable,
 		return divideAndRemainder(val)[1];
 	}
 
-	// public BigInteger pow(int exponent) {
-	// InternalBigDecimal i =
-	// internalBigInteger.internalBigDecimal.pow(exponent);
-	// InternalBigDecimal i2 = i.setScale(0);
-	// return new BigInteger(i2.toString());
-	// }
+	public BigInteger gcd(BigInteger b) {
+		if (ZERO.equals(this))
+			return b;
+		BigInteger a = abs();
+		b = b.abs();
+		while (! ZERO.equals(b))
+			if (a.compareTo(b) > 0) // a > b ?
+				a = a.subtract(b);
+			else
+				b = b.subtract(a);
+		return a;	
+	}
 
-	// public BigInteger gcd(BigInteger val) {
-	// throw new
-	// IllegalArgumentException("Method gcd(BigInteger val) not implemented");
-	// }
 	public BigInteger pow(int n) {
 		if (n < 0 || n > 999999999)
 			throw new ArithmeticException("Invalid operation");
