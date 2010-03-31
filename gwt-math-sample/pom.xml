@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.googlecode</groupId>
+	<artifactId>gwt-math-sample</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+
+	<properties>
+		<!-- convenience to define GWT version in one place -->
+		<gwt.version>2.0.3</gwt.version>
+
+		<!--  tell the compiler we can use 1.5 -->
+		<maven.compiler.source>1.5</maven.compiler.source>
+		<maven.compiler.target>1.5</maven.compiler.target>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>gwt-math</id>
+			<url>http://gwt-math.googlecode.com/svn/maven2</url>
+		</repository>
+		<repository>
+			<id>gwt-math-snapshots</id>
+			<url>http://gwt-math.googlecode.com/svn/maven2/snapshots</url>
+		</repository>
+	</repositories>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>1.2</version>
+				<configuration>
+					<compileTargets>
+						<value>1.5</value>
+					</compileTargets>
+					<webXml>${basedir}/src/main/webapp/WEB-INF/web-shell.xml</webXml>
+					<runTarget>${runTarget}</runTarget>
+					<noServer>${noServer}</noServer>
+					<draftCompile>true</draftCompile>
+					<extraJvmArgs>-Xmx512m -Xss1024k -Dgwt.nowarn.metadata
+						-Dgwt.nowarn.legacy.tools
+						-da:com.google.gwt.user.client.ui.RootPanel</extraJvmArgs>
+					<gwtVersion>${gwtVersion}</gwtVersion>
+					<webappDirectory>src/main/webapp</webappDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<warSourceExcludes>.gwt-tmp/**</warSourceExcludes>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.0.2</version>
+				<configuration>
+					<source>${maven.compiler.source}</source>
+					<target>${maven.compiler.target}</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+
+		<!--  GWT dependencies (from central repo) -->
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!--TEST -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.7</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!--GWT-MATH-->
+		<dependency>
+			<groupId>com.googlecode</groupId>
+			<artifactId>gwt-math</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.googlecode</groupId>
+			<artifactId>gwt-math-server</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+</project>
