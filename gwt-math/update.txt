@@ -1,0 +1,9 @@
+Mavenizzato progetto con repo interno
+
+Modificato controllo numericità nel costruttore di BigInteger: ora fatto con double
+
+BigDecimal: aggiunti contruttori BigDecimal(BigInteger val) e BigDecimal(BigInteger val, int scale)  
+
+BigInteger: aggiunto metodo BigInteger gcd(BigInteger b)
+
+????? perchè pow dice che non funziona??? issue 16
