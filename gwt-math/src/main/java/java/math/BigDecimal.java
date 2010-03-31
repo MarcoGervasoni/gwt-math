@@ -69,14 +69,15 @@ public class BigDecimal extends Number implements Cloneable, Serializable,
 		this("" + val);
 	}
 
-	//
-	// public BigDecimal(BigInteger val) {
-	// throw new IllegalArgumentException("Constructor not implemented");
-	// }
-	//
-	// public BigDecimal(BigInteger unscaledVal, int scale) {
-	// throw new IllegalArgumentException("Constructor not implemented");
-	// }
+	
+	 public BigDecimal(BigInteger val) {
+		 this("" + val);
+	 }
+	
+	 public BigDecimal(BigInteger val, int scale) {
+		 this("" + val);
+		 setScale(scale);
+	 }
 
 	// Static Factory Methods
 	public static BigDecimal valueOf(long unscaledVal, int scale) {
