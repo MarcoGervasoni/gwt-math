@@ -296,22 +296,22 @@ public class BigInteger extends Number implements Cloneable, Serializable,
 	// throw new IllegalArgumentException("Method  not implemented");
 	// }
 
-	@Override
+	//	@Override
 	public int intValue() {
 		return new Integer(this.toString()).intValue();
 	}
 
-	@Override
+	//	@Override
 	public double doubleValue() {
 		return new Double(this.toString());
 	}
 
-	@Override
+	//	@Override
 	public float floatValue() {
 		return new Float(this.toString());
 	}
 
-	@Override
+	//	@Override
 	public long longValue() {
 		return new Long(this.toString());
 	}
