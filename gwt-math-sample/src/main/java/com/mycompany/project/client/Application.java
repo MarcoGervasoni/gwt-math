@@ -49,6 +49,12 @@ public class Application implements EntryPoint {
 				clearAll(new TestCaseBigDecimal());
 			}
 		}));
+		bar.addItem(new MenuItem("TestCase BigInteger", new Command() {
+
+			public void execute() {
+				clearAll(new TestCaseBigInteger());
+			}
+		}));
 		
 		hp.add(bar);
 		rootPanel.add(hp);
