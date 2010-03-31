@@ -3,7 +3,7 @@ package java.math;
 import java.io.Serializable;
 
 public class BigDecimal extends Number implements Cloneable, Serializable,
-		Comparable<BigDecimal> {
+		Comparable/*<BigDecimal>*/ {
 
 	/*
 	 * MIEI CAMPI
@@ -227,12 +227,12 @@ public class BigDecimal extends Number implements Cloneable, Serializable,
 
 	// Comparison Operations
 
-	public int compareTo(BigDecimal val) {
+	public int compareTo(Object val) {
 		if (!(val instanceof BigDecimal)) {
 			throw new IllegalArgumentException(
 					"method compareTo only with BigDecimal");
 		}
-		return internalBigDecimal.compareTo(val.internalBigDecimal);
+		return internalBigDecimal.compareTo(((BigDecimal)val).internalBigDecimal);
 	}
 
 	// public int compareTo(Object o) {
@@ -272,22 +272,22 @@ public class BigDecimal extends Number implements Cloneable, Serializable,
 		return b;
 	}
 
-	@Override
+//	//	@Override
 	public int intValue() {
 		return toBigInteger().intValue();
 	}
 
-	@Override
+	//	@Override
 	public double doubleValue() {
 		return new Double(this.toString());
 	}
 
-	@Override
+	//	@Override
 	public float floatValue() {
 		return new Float(this.toString());
 	}
 
-	@Override
+	//	@Override
 	public long longValue() {
 		return new Long(this.toString());
 	}
