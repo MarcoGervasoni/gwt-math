@@ -2,6 +2,8 @@ package com.mycompany.project.client;
 
 import java.math.BigInteger;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
@@ -16,7 +18,7 @@ import com.google.gwt.user.client.ui.TextBoxBase;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
-public class BigIntegerTest extends Composite implements ClickListener{
+public class BigIntegerTest extends Composite implements ClickHandler{
 
 	private TextBox SecondoTB = new TextBox();
 	private TextBox PrimoTB = new TextBox();
@@ -35,6 +37,8 @@ public class BigIntegerTest extends Composite implements ClickListener{
 	private Button maxButton = new Button("Max",this);
 	private Button powButton = new Button("Pow",this);
 	private Button compareToButton = new Button("compareTo",this);
+	private Button gcdButton = new Button("gcd",this);
+	
 
 	private VerticalPanel vpDecimal = new VerticalPanel();
 
@@ -120,9 +124,10 @@ public class BigIntegerTest extends Composite implements ClickListener{
 		bottoniera.setWidget(1,row++, minButton);
 		bottoniera.setWidget(1,row++, maxButton);
 		bottoniera.setWidget(1,row++, reminderButton);
+		bottoniera.setWidget(1,row++, gcdButton);
 	}
 
-	public void onClick(Widget sender) {
+	public void oldOnClick(Widget sender) {
 		BigInteger primoTBBigInteger = new BigInteger(PrimoTB.getText());
 		BigInteger secondoTBBigInteger = new BigInteger(SecondoTB.getText());
 
@@ -131,6 +136,11 @@ public class BigIntegerTest extends Composite implements ClickListener{
 
 		if(sender == addButton){
 			res = primoTBBigInteger.add(secondoTBBigInteger);
+			str = res.toString();
+			totaleLB.setText(str);
+		}
+		else if(sender == gcdButton){
+			res = primoTBBigInteger.gcd(secondoTBBigInteger);
 			str = res.toString();
 			totaleLB.setText(str);
 		}
@@ -200,7 +210,9 @@ public class BigIntegerTest extends Composite implements ClickListener{
 				public void onSuccess(Object result) {}
 			});
 		}
-
 	}
 
+	public void onClick(ClickEvent arg0) {
+		oldOnClick((Widget)arg0.getSource());
+	}
 }

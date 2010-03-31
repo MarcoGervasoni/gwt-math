@@ -1,6 +1,5 @@
 package com.mycompany.project.client;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -14,60 +13,36 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
-public class TestCaseBigDecimal extends Composite {
+public class TestCaseBigInteger extends Composite {
 	
 	private VerticalPanel vp;
 
-	public TestCaseBigDecimal() {
+	public TestCaseBigInteger() {
 		vp = new VerticalPanel();
 		initWidget(vp);
-		vp.add(new TestRow("BigDecimal(int val)", new Test() {
+		vp.add(new TestRow("BigInteger gcd(BigInteger b)", new Test() {
 
 			public boolean test() {
 				try {
-					new BigDecimal(1);
+					BigInteger bi = new BigInteger("35563452234234");
+					BigInteger res = bi.gcd(new BigInteger("-34523123423456"));
+					if(!res.toString().equals("2")){
+						return false;
+					}
+					
+					bi = new BigInteger("354");
+					res = bi.gcd(new BigInteger("3456"));
+					if(!res.toString().equals("6")){
+						return false;
+					}
+
+					bi = new BigInteger("345654");
+					res = bi.gcd(new BigInteger("3456"));
+					if(!res.toString().equals("54")){
+						return false;
+					}
+					
 					return true;
-				} catch (Exception e) {
-					return false;
-				}
-			}
-		}));
-		vp.add(new TestRow("BigDecimal(BigInteger val)", new Test() {
-
-			public boolean test() {
-				try {
-					BigInteger bigInteger = new BigInteger("21215464647687");
-					BigDecimal bd = new BigDecimal(bigInteger);
-					BigInteger bi = bd.toBigInteger();
-					
-					if(bigInteger.compareTo(bi) == 0){
-						return true;
-					}
-					else{
-						return false;
-					}
-					
-				} catch (Exception e) {
-					return false;
-				}
-			}
-		}));
-		vp.add(new TestRow("BigDecimal(BigInteger val, int scale)", new Test() {
-
-			public boolean test() {
-				try {
-					BigInteger bigInteger = new BigInteger("21215464647687");
-					BigDecimal bd = new BigDecimal(bigInteger,4);
-					bd = bd.add(new BigDecimal("0.8"));
-					BigInteger bi = bd.toBigInteger();
-					
-					if(bigInteger.compareTo(bi) == 0){
-						return true;
-					}
-					else{
-						return false;
-					}
-					
 				} catch (Exception e) {
 					return false;
 				}
