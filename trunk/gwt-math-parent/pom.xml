@@ -1,0 +1,49 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.googlecode</groupId>
+  <artifactId>gwt-math-parent</artifactId>
+  <packaging>pom</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <modules>
+  	<module>../gwt-math</module>
+  	<module>../gwt-math-server</module>
+  </modules>
+  
+  	<properties>
+		<gwtVersion>1.6.4</gwtVersion>
+		<targetJdk>1.5</targetJdk>
+		<tempJar>temp.jar</tempJar>
+	</properties>
+  
+  <distributionManagement>
+		<repository>
+			<id>gwtmath.distribution</id>
+			<name>Beabuild Distribution Repository</name>
+			<url>scm:svn:https://gwt-math.googlecode.com/svn/maven2</url>
+		</repository>
+		<snapshotRepository>
+			<id>gwtmath.snapshots</id>
+			<name>Beabuild Snapshot Repository</name>
+			<url>scm:svn:https://gwt-math.googlecode.com/svn/maven2/snapshots
+			</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<source>${targetJdk}</source>
+					<target>${targetJdk}</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+	
+	
+	
+</project>

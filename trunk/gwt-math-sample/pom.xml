@@ -14,6 +14,13 @@
 		<!--  tell the compiler we can use 1.5 -->
 		<maven.compiler.source>1.5</maven.compiler.source>
 		<maven.compiler.target>1.5</maven.compiler.target>
+
+		<!-- GWT-->
+<!-- 		<compileTargets>com.mycompany.project.Application</compileTargets>-->
+        <runTarget>com.mycompany.project.Application/Application.html</runTarget>
+        <runTargetNoServer>http://bilwscslff1.mil.esselunga.net:7010/gwt-math-sample/com.mycompany.project.Application/Application.html</runTargetNoServer>
+<!--        <runTargetNoServer>http://localhost:7001/gwt-math-sample/com.mycompany.project.Application/Application.html</runTargetNoServer>-->
+        
 	</properties>
 
 	<repositories>
@@ -110,4 +117,16 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>gwt-noserver</id>
+			<properties>
+				<runTarget>${runTargetNoServer}</runTarget>
+				<noServer>true</noServer>
+				<draftCompile>true</draftCompile>
+			</properties>
+		</profile>
+	</profiles>
+
 </project>

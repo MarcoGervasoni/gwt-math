@@ -5,22 +5,35 @@ import java.math.BigInteger;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.junit.client.impl.JUnitHost.TestBlock;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Image;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class TestCaseBigDecimal extends Composite {
 	
 	private VerticalPanel vp;
+	private Button allTest;
 
 	public TestCaseBigDecimal() {
 		vp = new VerticalPanel();
 		initWidget(vp);
+		allTest = new Button("Test All",new ClickHandler() {
+			
+			public void onClick(ClickEvent arg0) {
+				for (int i = 0; i < vp.getWidgetCount(); i++) {
+					Widget w = vp.getWidget(i);
+					if(w instanceof TestRow){
+						((TestRow)w).getButton().click();
+					}
+				}
+				
+			}
+		});
+		vp.add(allTest);
 		vp.add(new TestRow("BigDecimal(int val)", new Test() {
 
 			public boolean test() {
@@ -57,15 +70,21 @@ public class TestCaseBigDecimal extends Composite {
 			public boolean test() {
 				try {
 					BigInteger bigInteger = new BigInteger("21215464647687");
-					BigDecimal bd = new BigDecimal(bigInteger,4);
-					bd = bd.add(new BigDecimal("0.8"));
+
+					BigDecimal bd = new BigDecimal(bigInteger);
 					BigInteger bi = bd.toBigInteger();
+					if(bigInteger.compareTo(bi) != 0){
+						return false;
+					}
 					
+					bd = new BigDecimal(bigInteger,4);
+					bd = bd.add(new BigDecimal("0.8"));
+					bi = bd.toBigInteger();
 					if(bigInteger.compareTo(bi) == 0){
-						return true;
+						return false;
 					}
 					else{
-						return false;
+						return true;
 					}
 					
 				} catch (Exception e) {
@@ -78,13 +97,18 @@ public class TestCaseBigDecimal extends Composite {
 
 	private class TestRow extends Composite {
 		private HorizontalPanel hp;
+		private Button button;
 
 		public TestRow(String text, Test clickHandler) {
 			hp = new HorizontalPanel();
 			initWidget(hp);
 			// hp.add(new Label(text));
 			clickHandler.setHp(hp);
-			hp.add(new Button(text, clickHandler));
+			button = new Button(text, clickHandler);
+			hp.add(button);
+		}
+		private Button getButton() {
+			return button;
 		}
 	}
 
