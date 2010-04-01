@@ -58,7 +58,7 @@ public class Application implements EntryPoint {
 		
 		hp.add(bar);
 		rootPanel.add(hp);
-		
+		rootPanel.add(new HTML("<br>"));
 		rootPanel.add(page);
 
 	}

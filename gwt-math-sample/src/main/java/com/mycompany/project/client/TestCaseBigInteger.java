@@ -12,14 +12,29 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.ToggleButton;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 public class TestCaseBigInteger extends Composite {
 	
 	private VerticalPanel vp;
-
+	private Button allTest;
 	public TestCaseBigInteger() {
 		vp = new VerticalPanel();
 		initWidget(vp);
+		allTest = new Button("Test All",new ClickHandler() {
+			
+			public void onClick(ClickEvent arg0) {
+				for (int i = 0; i < vp.getWidgetCount(); i++) {
+					Widget w = vp.getWidget(i);
+					if(w instanceof TestRow){
+						((TestRow)w).getButton().click();
+					}
+				}
+				
+			}
+		});
+		vp.add(allTest);
+
 		vp.add(new TestRow("BigInteger gcd(BigInteger b)", new Test() {
 
 			public boolean test() {
@@ -53,13 +68,18 @@ public class TestCaseBigInteger extends Composite {
 
 	private class TestRow extends Composite {
 		private HorizontalPanel hp;
+		private Button button;
 
 		public TestRow(String text, Test clickHandler) {
 			hp = new HorizontalPanel();
 			initWidget(hp);
 			// hp.add(new Label(text));
 			clickHandler.setHp(hp);
-			hp.add(new Button(text, clickHandler));
+			button = new Button(text, clickHandler);
+			hp.add(button);
+		}
+		private Button getButton() {
+			return button;
 		}
 	}
 
