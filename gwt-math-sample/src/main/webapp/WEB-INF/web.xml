@@ -17,7 +17,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>DataSourceService</servlet-name>
-		<url-pattern>com.mycompany.project.Application/DataSourceService</url-pattern>
+		<url-pattern>/com.mycompany.project.Application/DataSourceService</url-pattern>
 	</servlet-mapping>
 	
 </web-app>
